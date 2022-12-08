@@ -27,7 +27,7 @@ public class SecondActivity extends AppCompatActivity {
     private LinearLayout backLayout;
     private LinearLayout photoLayout;
     private SensorManager sensorManager;
-    private Sensor lightSensor;
+    // private Sensor lightSensor;
     private SensorEventListener sensorEventListener;
 
     @Override
@@ -44,7 +44,7 @@ public class SecondActivity extends AppCompatActivity {
         photoLayout = findViewById(R.id.choose_photo);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        // lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         // sensorEventListener = new LightSensorEventListener(lightLayout);
 
         initView();
@@ -54,9 +54,9 @@ public class SecondActivity extends AppCompatActivity {
     protected void onResume() {
         // System.out.println("---------------------|||||||||||||---onResume---|||||||||||-------------------------");
         super.onResume();
-        if (lightSensor != null) {
-            sensorManager.registerListener(sensorEventListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        }
+        // if (lightSensor != null) {
+        //     sensorManager.registerListener(sensorEventListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        // }
     }
 
     @Override
