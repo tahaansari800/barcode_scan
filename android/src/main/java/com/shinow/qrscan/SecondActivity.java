@@ -23,11 +23,11 @@ public class SecondActivity extends AppCompatActivity {
 
     public static boolean isLightOpen = false;
     private final int REQUEST_IMAGE = 101;
-    // private LinearLayout lightLayout;
+    private LinearLayout lightLayout;
     private LinearLayout backLayout;
     private LinearLayout photoLayout;
     private SensorManager sensorManager;
-    // private Sensor lightSensor;
+    private Sensor lightSensor;
     private SensorEventListener sensorEventListener;
 
     @Override
@@ -39,13 +39,13 @@ public class SecondActivity extends AppCompatActivity {
         captureFragment.setAnalyzeCallback(analyzeCallback);
         getSupportFragmentManager().beginTransaction().replace(R.id.fl_my_container, captureFragment).commit();
 
-        // lightLayout = findViewById(R.id.scan_light);
+        lightLayout = findViewById(R.id.scan_light);
         backLayout = findViewById(R.id.scan_back);
         photoLayout = findViewById(R.id.choose_photo);
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        // lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-        // sensorEventListener = new LightSensorEventListener(lightLayout);
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorEventListener = new LightSensorEventListener(lightLayout);
 
         initView();
     }
@@ -54,9 +54,9 @@ public class SecondActivity extends AppCompatActivity {
     protected void onResume() {
         // System.out.println("---------------------|||||||||||||---onResume---|||||||||||-------------------------");
         super.onResume();
-        // if (lightSensor != null) {
-        //     sensorManager.registerListener(sensorEventListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
-        // }
+        if (lightSensor != null) {
+            sensorManager.registerListener(sensorEventListener, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
     }
 
     @Override
@@ -67,26 +67,26 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        // lightLayout.setOnClickListener(new View.OnClickListener() {
-        //     @Override
-        //     public void onClick(View v) {
-        //         if (!isLightOpen) {
-        //             try {
-        //                 CodeUtils.isLightEnable(true);
-        //                 isLightOpen = true;
-        //             } catch (Exception e) {
-        //                 Toast.makeText(getApplicationContext(), "Can't use light", Toast.LENGTH_SHORT).show();
-        //             }
-        //         } else {
-        //             try {
-        //                 CodeUtils.isLightEnable(false);
-        //                 isLightOpen = false;
-        //             } catch (Exception e) {
-        //                 Toast.makeText(getApplicationContext(), "Can't use light", Toast.LENGTH_SHORT).show();
-        //             }
-        //         }
-        //     }
-        // });
+        lightLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isLightOpen) {
+                    try {
+                        CodeUtils.isLightEnable(true);
+                        isLightOpen = true;
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Can't use light", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    try {
+                        CodeUtils.isLightEnable(false);
+                        isLightOpen = false;
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Can't use light", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
         backLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
